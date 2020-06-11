@@ -1,0 +1,64 @@
+---
+- name: a play that upgrades a VyOS device
+  hosts: vyos
+  gather_facts: false
+  vars:
+    sysimg_url: https://downloads.vyos.io/rolling/current/amd64/vyos-rolling-latest.iso
+
+  tasks:
+  - name: abort unless target host has ansible_network_os == 'vyos'
+    assert:
+      that: "ansible_network_os == 'vyos'"
+
+  - name: get old system image information
+    vyos_command:
+      commands:
+      - show system image
+    register: old_system_image
+
+  - name: show old system image information
+    debug:
+      msg: "{{ old_system_image.stdout }}"
+
+ 
+  - name: multiple prompt, multiple answer (mandatory check for all prompts)
+    cli_command:
+      command: "add system image vyos-1.3-rolling-202006111456-amd64.iso"
+      check_all: True
+      prompt: 
+        - What would you like to name this image?
+        - "Yes"
+        - "Yes"
+      answer:
+        - ' '
+        - 'Yes'
+        - 'Yes'
+    register: vardownload
+
+  - name: show new system image information
+    debug:
+      msg: "{{ vardownload }}"
+  
+  - name: get new system image information
+    vyos_command:
+      commands:
+      - show system image
+    register: new_system_image
+    
+
+  - name: show new system image information
+    debug:
+      msg: "{{ new_system_image.stdout }}"
+
+  - name: reboot the system
+    vyos_command:
+      commands:
+      - command: reboot now
+    ignore_errors: yes
+    when: old_system_image.stdout != new_system_image.stdout
+
+  - name: wait for restart
+    wait_for_connection:
+      delay: 20
+      timeout: 120
+    when: old_system_image.stdout != new_system_image.stdout

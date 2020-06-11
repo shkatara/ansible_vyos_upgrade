@@ -1,0 +1,1 @@
+vyos ansible_host=192.168.122.55 ansible_password=vyos ansible_connection=network_cli ansible_network_os=vyos

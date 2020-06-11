@@ -1,0 +1,26 @@
+---
+- name: test
+  hosts: vyos
+  gather_facts: false
+  tasks:
+    #  - name: run command that a prompt
+     #   vyos_command:
+      #    commands:
+       #     - command: 'reboot'
+        #      prompt: 'Are you sure you want to reboot this system? [y/N]'
+         #     answer: y
+      
+     # - name: run command that a prompt
+      #  vyos_command:
+       #   commands:
+        #    - command: 'reboot'
+         #     prompt: 'Sure?'
+             # answer:
+                #- y 
+                #
+    - name: backup
+      cli_command:
+        command: show version
+      register: a
+
+    - debug: var=a

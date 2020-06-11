@@ -1,0 +1,20 @@
+set interfaces ethernet eth0 address '192.168.122.55/24'[m
+set interfaces ethernet eth0 hw-id '52:54:00:8e:78:d7'[m
+set interfaces loopback lo[m
+set nat source rule 100 outbound-interface 'eth0'[m
+set nat source rule 100 translation address '192.168.122.55'[m
+set protocols static route 0.0.0.0/0 next-hop 192.168.122.1 distance '1'[m
+set service ssh[m
+set system config-management commit-revisions '100'[m
+set system console device ttyS0 speed '115200'[m
+set system host-name 'vyos'[m
+set system ip disable-forwarding[m
+set system login user vyos authentication encrypted-password '$6$rNXIeOBxjs3WQpk$lBL31KthDSOmXGMWBbq784YF5gFURDV3ElHHemYN.TOadLnee/LWzxa3lHe7hbGvq0Ts5y15K6YA8OtFGbDNN.'[m
+set system login user vyos authentication plaintext-password ''[m
+set system name-server '8.8.8.8'[m
+set system name-server '192.168.122.1'[m
+set system ntp server 0.pool.ntp.org[m
+set system ntp server 1.pool.ntp.org[m
+set system ntp server 2.pool.ntp.org[m
+set system syslog global facility all level 'info'[m
+set system syslog global facility protocols level 'debug'[m

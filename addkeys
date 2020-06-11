@@ -1,0 +1,3 @@
+To add the signing keys after 1.17
+
+gpg --keyserver keyserver.ubuntu.com --recv-key 0xA0FE6D7E
