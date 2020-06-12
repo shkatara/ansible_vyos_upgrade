@@ -49,16 +49,24 @@
   - name: show new system image information
     debug:
       msg: "{{ new_system_image.stdout }}"
+  
+  - name: keeping the same image as default
+    cli_command:
+      command: set system image default-boot 1.3-rolling-202005280117
 
-  - name: reboot the system
-    vyos_command:
-      commands:
-      - command: reboot now
-    ignore_errors: yes
-    when: old_system_image.stdout != new_system_image.stdout
+ # - name: verifying the new image has been updated
+ #   pause:
+ #     seconds: 20
 
-  - name: wait for restart
-    wait_for_connection:
-      delay: 20
-      timeout: 120
-    when: old_system_image.stdout != new_system_image.stdout
+#  - name: reboot the system
+#    vyos_command:
+#      commands:
+#      - command: reboot now
+#    ignore_errors: yes
+#    when: old_system_image.stdout != new_system_image.stdout
+
+#  - name: wait for restart
+ #   wait_for_connection:
+  #    delay: 20
+   #   timeout: 120
+   # when: old_system_image.stdout != new_system_image.stdout
