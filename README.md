@@ -4,7 +4,7 @@ Getting Started With VyOS / Cisco IOS Upgrade
 I will not be explaining Ansible. There are plenty of good examples for it over the internet. This is just something I did when I was bored and someone asked for it.
 
 ## Some links for more in depth learning
-* [Learn Ansible](https://www.ansible.com/resources/videos/quick-start-video) Official ANsible Documentation.
+* [Learn Ansible](https://www.ansible.com/resources/videos/quick-start-video) Official Ansible Documentation.
 * [Ansible Module Index](https://docs.ansible.com/ansible/latest/modules/modules_by_category.html) Official Ansible documentation for Ansible modules.
 
 
