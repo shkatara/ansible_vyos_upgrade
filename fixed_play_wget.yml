@@ -20,10 +20,14 @@
     debug:
       msg: "{{ old_system_image.stdout }}"
 
+  - name: download the new image first on the disk.
+    get_url:
+      url: https://downloads.vyos.io/rolling/current/amd64/vyos-rolling-latest.iso
+      dest: /home/vyos/vyos-rolling-latest.iso
  
-  - name: multiple prompt, multiple answer (mandatory check for all prompts)
+  - name: Installing the new image from the filesystem (mandatory check for all prompts)
     cli_command:
-      command: "add system image vyos-1.3-rolling-202006111456-amd64.iso"
+      command: "add system image vyos-rolling-latest.iso"
       check_all: True
       prompt: 
         - What would you like to name this image?
@@ -54,19 +58,3 @@
     cli_command:
       command: set system image default-boot 1.3-rolling-202005280117
 
- # - name: verifying the new image has been updated
- #   pause:
- #     seconds: 20
-
-#  - name: reboot the system
-#    vyos_command:
-#      commands:
-#      - command: reboot now
-#    ignore_errors: yes
-#    when: old_system_image.stdout != new_system_image.stdout
-
-#  - name: wait for restart
- #   wait_for_connection:
-  #    delay: 20
-   #   timeout: 120
-   # when: old_system_image.stdout != new_system_image.stdout
